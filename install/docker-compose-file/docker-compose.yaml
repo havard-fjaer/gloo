@@ -12,6 +12,7 @@ services:
     ports:
     - "9977:9977"
     restart: always
+    user: ${CURRENT_UID}
 
   gateway:
     image: ${GLOO_REPO:-quay.io/solo-io}/gateway:${GLOO_VERSION:-1.9.0}
@@ -21,6 +22,7 @@ services:
     volumes:
     - ./data:/data/
     restart: always
+    user: ${CURRENT_UID}
 
   gateway-proxy:
     image: ${GLOO_REPO:-quay.io/solo-io}/gloo-envoy-wrapper:${GLOO_VERSION:-1.9.0}
@@ -33,6 +35,7 @@ services:
     - "8443:8443"
     - "19000:19000"
     restart: always
+    user: ${CURRENT_UID}
 
  # example application, the swagger petstore
   petstore:
@@ -40,3 +43,5 @@ services:
     ports:
     - "8090:8080"
     restart: always
+    user: ${CURRENT_UID}
+    
