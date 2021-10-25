@@ -1,7 +1,16 @@
 metadata:
   name: default
   namespace: gloo-system
-  resourceVersion: "2"
+  resourceVersion: "4"
+namespacedStatuses:
+  statuses:
+    gloo-system:
+      reportedBy: gateway
+      state: Accepted
+      subresourceStatuses:
+        '*v1.Proxy.gloo-system.gateway-proxy':
+          reportedBy: gloo
+          state: Accepted
 virtualHost:
   domains:
   - '*'
