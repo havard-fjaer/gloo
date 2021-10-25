@@ -1,7 +1,7 @@
 metadata:
   name: default
   namespace: gloo-system
-  resourceVersion: "4"
+  resourceVersion: "6"
 namespacedStatuses:
   statuses:
     gloo-system:
