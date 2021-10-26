@@ -1,7 +1,7 @@
 metadata:
   name: default
   namespace: gloo-system
-  resourceVersion: "10"
+  resourceVersion: "18"
 namespacedStatuses:
   statuses:
     gloo-system:
@@ -18,16 +18,16 @@ virtualHost:
   - matchers:
     - exact: /petstore
     options:
+      customHeaderManipulation:
+        responseHeadersToAdd:
+        - header:
+            key: X-Test-Header-Custom
+            value: From custom plugin 4
       headerManipulation:
         responseHeadersToAdd:
         - header:
             key: X-Test-Header
-            value: From standard plugin 5
-      customHeaderManipulation:
-        responseHeadersToAdd:
-        - header:
-            key: X-Custom-Test-Header
-            value: From custom plugin
+            value: From plugin 4
       prefixRewrite: /api/pets
     routeAction:
       single:

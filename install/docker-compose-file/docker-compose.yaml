@@ -13,6 +13,8 @@ services:
     - "9977:9977"
     restart: always
     user: ${CURRENT_UID}
+    environment:
+     - LOG_LEVEL=DEBUG
 
   gateway:
     image: ${GLOO_REPO:-quay.io/solo-io}/gateway:${GLOO_VERSION:-1.9.0}
@@ -23,11 +25,13 @@ services:
     - ./data:/data/
     restart: always
     user: ${CURRENT_UID}
+    environment:
+     - LOG_LEVEL=DEBUG
 
   gateway-proxy:
     image: ${GLOO_REPO:-quay.io/solo-io}/gloo-envoy-wrapper:${GLOO_VERSION:-1.9.0}
     entrypoint: ["envoy"]
-    command: ["-c", "/config/envoy.yaml", "--disable-hot-restart"]
+    command: ["-c", "/config/envoy.yaml", "--disable-hot-restart", "--log-level", "info"]
     volumes:
     - ./data/envoy-config.yaml:/config/envoy.yaml:ro
     ports:
@@ -36,6 +40,8 @@ services:
     - "19000:19000"
     restart: always
     user: ${CURRENT_UID}
+    environment:
+     - LOG_LEVEL=ERROR
 
  # example application, the swagger petstore
   petstore:
@@ -44,4 +50,5 @@ services:
     - "8090:8080"
     restart: always
     user: ${CURRENT_UID}
-    
+    environment:
+     - LOG_LEVEL=DEBUG
