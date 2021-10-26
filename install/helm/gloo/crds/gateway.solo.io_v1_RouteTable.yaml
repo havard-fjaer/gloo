@@ -234,6 +234,54 @@ spec:
                                   type: string
                               type: object
                           type: object
+                        customHeaderManipulation:
+                          properties:
+                            requestHeadersToAdd:
+                              items:
+                                properties:
+                                  append:
+                                    nullable: true
+                                    type: boolean
+                                  header:
+                                    properties:
+                                      key:
+                                        type: string
+                                      value:
+                                        type: string
+                                    type: object
+                                  headerSecretRef:
+                                    properties:
+                                      name:
+                                        type: string
+                                      namespace:
+                                        type: string
+                                    type: object
+                                type: object
+                              type: array
+                            requestHeadersToRemove:
+                              items:
+                                type: string
+                              type: array
+                            responseHeadersToAdd:
+                              items:
+                                properties:
+                                  append:
+                                    nullable: true
+                                    type: boolean
+                                  header:
+                                    properties:
+                                      key:
+                                        type: string
+                                      value:
+                                        type: string
+                                    type: object
+                                type: object
+                              type: array
+                            responseHeadersToRemove:
+                              items:
+                                type: string
+                              type: array
+                          type: object
                         dlp:
                           properties:
                             actions:
@@ -1853,6 +1901,54 @@ spec:
                                               runtimeKey:
                                                 type: string
                                             type: object
+                                        type: object
+                                      customHeaderManipulation:
+                                        properties:
+                                          requestHeadersToAdd:
+                                            items:
+                                              properties:
+                                                append:
+                                                  nullable: true
+                                                  type: boolean
+                                                header:
+                                                  properties:
+                                                    key:
+                                                      type: string
+                                                    value:
+                                                      type: string
+                                                  type: object
+                                                headerSecretRef:
+                                                  properties:
+                                                    name:
+                                                      type: string
+                                                    namespace:
+                                                      type: string
+                                                  type: object
+                                              type: object
+                                            type: array
+                                          requestHeadersToRemove:
+                                            items:
+                                              type: string
+                                            type: array
+                                          responseHeadersToAdd:
+                                            items:
+                                              properties:
+                                                append:
+                                                  nullable: true
+                                                  type: boolean
+                                                header:
+                                                  properties:
+                                                    key:
+                                                      type: string
+                                                    value:
+                                                      type: string
+                                                  type: object
+                                              type: object
+                                            type: array
+                                          responseHeadersToRemove:
+                                            items:
+                                              type: string
+                                            type: array
                                         type: object
                                       extauth:
                                         properties:

@@ -26,7 +26,7 @@ var (
 )
 
 // Hash function
-func (m *HeaderManipulation) Hash(hasher hash.Hash64) (uint64, error) {
+func (m *CustomHeaderManipulation) Hash(hasher hash.Hash64) (uint64, error) {
 	if m == nil {
 		return 0, nil
 	}
@@ -34,7 +34,7 @@ func (m *HeaderManipulation) Hash(hasher hash.Hash64) (uint64, error) {
 		hasher = fnv.New64()
 	}
 	var err error
-	if _, err = hasher.Write([]byte("custom_headers.options.gloo.solo.io.github.com/solo-io/gloo/projects/gloo/pkg/api/v1/options/custom_headers.HeaderManipulation")); err != nil {
+	if _, err = hasher.Write([]byte("custom_headers.options.gloo.solo.io.github.com/solo-io/gloo/projects/gloo/pkg/api/v1/options/custom_headers.CustomHeaderManipulation")); err != nil {
 		return 0, err
 	}
 
@@ -106,7 +106,7 @@ func (m *HeaderManipulation) Hash(hasher hash.Hash64) (uint64, error) {
 }
 
 // Hash function
-func (m *HeaderValueOption) Hash(hasher hash.Hash64) (uint64, error) {
+func (m *CustomHeaderValueOption) Hash(hasher hash.Hash64) (uint64, error) {
 	if m == nil {
 		return 0, nil
 	}
@@ -114,7 +114,7 @@ func (m *HeaderValueOption) Hash(hasher hash.Hash64) (uint64, error) {
 		hasher = fnv.New64()
 	}
 	var err error
-	if _, err = hasher.Write([]byte("custom_headers.options.gloo.solo.io.github.com/solo-io/gloo/projects/gloo/pkg/api/v1/options/custom_headers.HeaderValueOption")); err != nil {
+	if _, err = hasher.Write([]byte("custom_headers.options.gloo.solo.io.github.com/solo-io/gloo/projects/gloo/pkg/api/v1/options/custom_headers.CustomHeaderValueOption")); err != nil {
 		return 0, err
 	}
 

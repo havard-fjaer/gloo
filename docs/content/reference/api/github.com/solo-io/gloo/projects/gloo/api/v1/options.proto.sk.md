@@ -156,6 +156,7 @@ to be usable by Gloo. (plugins currently need to be compiled into Gloo)
 "cors": .cors.options.gloo.solo.io.CorsPolicy
 "transformations": .transformation.options.gloo.solo.io.Transformations
 "ratelimitBasic": .ratelimit.options.gloo.solo.io.IngressRateLimit
+"customHeaderManipulation": .custom_headers.options.gloo.solo.io.CustomHeaderManipulation
 "ratelimit": .ratelimit.options.gloo.solo.io.RateLimitVhostExtension
 "rateLimitConfigs": .ratelimit.options.gloo.solo.io.RateLimitConfigRefs
 "waf": .waf.options.gloo.solo.io.Settings
@@ -181,6 +182,7 @@ to be usable by Gloo. (plugins currently need to be compiled into Gloo)
 | `cors` | [.cors.options.gloo.solo.io.CorsPolicy](../options/cors/cors.proto.sk/#corspolicy) | Defines a CORS policy for the virtual host If a CORS policy is also defined on the route matched by the request, the policies are merged. |
 | `transformations` | [.transformation.options.gloo.solo.io.Transformations](../options/transformation/transformation.proto.sk/#transformations) | Transformations to apply. Note: this field is superseded by `staged_transformations`. If `staged_transformations.regular` is set, this field will be ignored. |
 | `ratelimitBasic` | [.ratelimit.options.gloo.solo.io.IngressRateLimit](../enterprise/options/ratelimit/ratelimit.proto.sk/#ingressratelimit) | Enterprise-only: Config for GlooE rate-limiting using simplified (gloo-specific) API. |
+| `customHeaderManipulation` | [.custom_headers.options.gloo.solo.io.CustomHeaderManipulation](../options/custom_headers/custom_headers.proto.sk/#customheadermanipulation) |  |
 | `ratelimit` | [.ratelimit.options.gloo.solo.io.RateLimitVhostExtension](../enterprise/options/ratelimit/ratelimit.proto.sk/#ratelimitvhostextension) | Enterprise-only: Partial config for GlooE rate-limiting based on Envoy's rate-limit service; supports Envoy's rate-limit service API. (reference here: https://github.com/lyft/ratelimit#configuration) Configure rate-limit *actions* here, which define how request characteristics get translated into descriptors used by the rate-limit service for rate-limiting. Configure rate-limit *descriptors* and their associated limits on the Gloo settings. Only one of `ratelimit` or `rate_limit_configs` can be set. Only one of `ratelimit` or `rateLimitConfigs` can be set. |
 | `rateLimitConfigs` | [.ratelimit.options.gloo.solo.io.RateLimitConfigRefs](../enterprise/options/ratelimit/ratelimit.proto.sk/#ratelimitconfigrefs) | References to RateLimitConfig resources. This is used to configure the GlooE rate limit server. Only one of `ratelimit` or `rate_limit_configs` can be set. Only one of `rateLimitConfigs` or `ratelimit` can be set. |
 | `waf` | [.waf.options.gloo.solo.io.Settings](../enterprise/options/waf/waf.proto.sk/#settings) | Enterprise-only: Config for Web Application Firewall (WAF), supporting the popular ModSecurity 3.0 ruleset. |
@@ -236,6 +238,7 @@ to be usable by Gloo. (plugins currently need to be compiled into Gloo)
 "stagedTransformations": .transformation.options.gloo.solo.io.TransformationStages
 "envoyMetadata": map<string, .google.protobuf.Struct>
 "regexRewrite": .solo.io.envoy.type.matcher.v3.RegexMatchAndSubstitute
+"customHeaderManipulation": .custom_headers.options.gloo.solo.io.CustomHeaderManipulation
 
 ```
 
@@ -269,6 +272,7 @@ to be usable by Gloo. (plugins currently need to be compiled into Gloo)
 | `stagedTransformations` | [.transformation.options.gloo.solo.io.TransformationStages](../options/transformation/transformation.proto.sk/#transformationstages) | Early transformations stage. These transformations run before most other options are processed. If the `regular` field is set in here, the `transformations` field is ignored. |
 | `envoyMetadata` | `map<string, .google.protobuf.Struct>` | This field can be used to provide additional information about the route. This metadata can be consumed by the Envoy filters that process requests that match the route. For more info about metadata, see [here](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/advanced/data_sharing_between_filters#metadata). The value of this field will be propagated to the `metadata` attribute of the corresponding Envoy route. Please refer to the [Envoy documentation](https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/route/v3/route_components.proto#config-route-v3-route) for more details about the `metadata` attribute. |
 | `regexRewrite` | [.solo.io.envoy.type.matcher.v3.RegexMatchAndSubstitute](../../external/envoy/type/matcher/v3/regex.proto.sk/#regexmatchandsubstitute) | For requests matched on this route, rewrite the HTTP request path according to the provided regex pattern before forwarding upstream Please refer to the [Envoy documentation](https://www.envoyproxy.io/docs/envoy/v1.14.1/api-v3/config/route/v3/route_components.proto#envoy-v3-api-field-config-route-v3-routeaction-regex-rewrite) for more details about the `regex_rewrite` attribute. |
+| `customHeaderManipulation` | [.custom_headers.options.gloo.solo.io.CustomHeaderManipulation](../options/custom_headers/custom_headers.proto.sk/#customheadermanipulation) |  |
 
 
 
@@ -312,18 +316,20 @@ is selected for routing.
 "bufferPerRoute": .solo.io.envoy.extensions.filters.http.buffer.v3.BufferPerRoute
 "csrf": .solo.io.envoy.extensions.filters.http.csrf.v3.CsrfPolicy
 "stagedTransformations": .transformation.options.gloo.solo.io.TransformationStages
+"customHeaderManipulation": .custom_headers.options.gloo.solo.io.CustomHeaderManipulation
 
 ```
 
 | Field | Type | Description |
 | ----- | ---- | ----------- | 
 | `headerManipulation` | [.headers.options.gloo.solo.io.HeaderManipulation](../options/headers/headers.proto.sk/#headermanipulation) | Append/Remove headers on Requests or Responses to/from this Weighted Destination. |
-| `transformations` | [.transformation.options.gloo.solo.io.Transformations](../options/transformation/transformation.proto.sk/#transformations) | Transformations to apply. Note: this field is superseded by `staged_transformations`. If `staged_transformations.regular` is set, this field will be ignored. |
+| `transformations` | [.transformation.options.gloo.solo.io.Transformations](../options/transformation/transformation.proto.sk/#transformations) | If `staged_transformations.regular` is set, this field will be ignored. |
 | `extensions` | [.gloo.solo.io.Extensions](../extensions.proto.sk/#extensions) | Extensions will be passed along from Listeners, Gateways, VirtualServices, Routes, and Route tables to the underlying Proxy, making them useful for controllers, validation tools, etc. which interact with kubernetes yaml. Some sample use cases: * controllers, deployment pipelines, helm charts, etc. which wish to use extensions as a kind of opaque metadata. * In the future, Gloo may support gRPC-based plugins which communicate with the Gloo translator out-of-process. Opaque Extensions enables development of out-of-process plugins without requiring recompiling & redeploying Gloo's API. |
 | `extauth` | [.enterprise.gloo.solo.io.ExtAuthExtension](../enterprise/options/extauth/v1/extauth.proto.sk/#extauthextension) | Enterprise-only: Authentication configuration. |
 | `bufferPerRoute` | [.solo.io.envoy.extensions.filters.http.buffer.v3.BufferPerRoute](../../external/envoy/extensions/filters/http/buffer/v3/buffer.proto.sk/#bufferperroute) | BufferPerRoute can be used to set the maximum request size that the filter will buffer before the connection manager will stop buffering and return a 413 response. Note: If you have not set a global config (at the gateway level), this override will not do anything by itself. |
 | `csrf` | [.solo.io.envoy.extensions.filters.http.csrf.v3.CsrfPolicy](../../external/envoy/extensions/filters/http/csrf/v3/csrf.proto.sk/#csrfpolicy) | Csrf can be used to set percent of requests for which the CSRF filter is enabled, enable shadow-only mode where policies will be evaluated and tracked, but not enforced and add additional source origins that will be allowed in addition to the destination origin. For more, see https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/filter/http/csrf/v2/csrf.proto. |
 | `stagedTransformations` | [.transformation.options.gloo.solo.io.TransformationStages](../options/transformation/transformation.proto.sk/#transformationstages) | Early transformations stage. These transformations run before most other options are processed. If the `regular` field is set in here, the `transformations` field is ignored. |
+| `customHeaderManipulation` | [.custom_headers.options.gloo.solo.io.CustomHeaderManipulation](../options/custom_headers/custom_headers.proto.sk/#customheadermanipulation) |  |
 
 
 

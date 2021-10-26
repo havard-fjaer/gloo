@@ -439,6 +439,16 @@ func (m *VirtualHostOptions) Equal(that interface{}) bool {
 		}
 	}
 
+	if h, ok := interface{}(m.GetCustomHeaderManipulation()).(equality.Equalizer); ok {
+		if !h.Equal(target.GetCustomHeaderManipulation()) {
+			return false
+		}
+	} else {
+		if !proto.Equal(m.GetCustomHeaderManipulation(), target.GetCustomHeaderManipulation()) {
+			return false
+		}
+	}
+
 	if h, ok := interface{}(m.GetWaf()).(equality.Equalizer); ok {
 		if !h.Equal(target.GetWaf()) {
 			return false
@@ -865,6 +875,16 @@ func (m *RouteOptions) Equal(that interface{}) bool {
 		}
 	}
 
+	if h, ok := interface{}(m.GetCustomHeaderManipulation()).(equality.Equalizer); ok {
+		if !h.Equal(target.GetCustomHeaderManipulation()) {
+			return false
+		}
+	} else {
+		if !proto.Equal(m.GetCustomHeaderManipulation(), target.GetCustomHeaderManipulation()) {
+			return false
+		}
+	}
+
 	switch m.HostRewriteType.(type) {
 
 	case *RouteOptions_HostRewrite:
@@ -1159,6 +1179,16 @@ func (m *WeightedDestinationOptions) Equal(that interface{}) bool {
 		}
 	} else {
 		if !proto.Equal(m.GetStagedTransformations(), target.GetStagedTransformations()) {
+			return false
+		}
+	}
+
+	if h, ok := interface{}(m.GetCustomHeaderManipulation()).(equality.Equalizer); ok {
+		if !h.Equal(target.GetCustomHeaderManipulation()) {
+			return false
+		}
+	} else {
+		if !proto.Equal(m.GetCustomHeaderManipulation(), target.GetCustomHeaderManipulation()) {
 			return false
 		}
 	}

@@ -34,7 +34,7 @@ func (p *Plugin) ProcessWeightedDestination(
 	in *v1.WeightedDestination,
 	out *envoy_config_route_v3.WeightedCluster_ClusterWeight,
 ) error {
-	headerManipulation := in.GetOptions().GetHeaderManipulation()
+	headerManipulation := in.GetOptions().GetCustomHeaderManipulation()
 	if headerManipulation == nil {
 		return nil
 	}
@@ -57,7 +57,7 @@ func (p *Plugin) ProcessVirtualHost(
 	in *v1.VirtualHost,
 	out *envoy_config_route_v3.VirtualHost,
 ) error {
-	headerManipulation := in.GetOptions().GetHeaderManipulation()
+	headerManipulation := in.GetOptions().GetCustomHeaderManipulation()
 
 	if headerManipulation == nil {
 		return nil
@@ -77,7 +77,7 @@ func (p *Plugin) ProcessVirtualHost(
 }
 
 func (p *Plugin) ProcessRoute(params plugins.RouteParams, in *v1.Route, out *envoy_config_route_v3.Route) error {
-	headerManipulation := in.GetOptions().GetHeaderManipulation()
+	headerManipulation := in.GetOptions().GetCustomHeaderManipulation()
 
 	if headerManipulation == nil {
 		return nil
@@ -113,7 +113,7 @@ func getSecretsFromSnapshot(snapshot *v1.ApiSnapshot) *v1.SecretList {
 	return secrets
 }
 
-func convertHeaderConfig(in *custom_headers.HeaderManipulation, secrets *v1.SecretList) (*envoyHeaderManipulation, error) {
+func convertHeaderConfig(in *custom_headers.CustomHeaderManipulation, secrets *v1.SecretList) (*envoyHeaderManipulation, error) {
 	// request headers can either be made from a normal key/value pair, or.
 	// they can be constructed from a supplied secret. To accomplish this, we use
 	// a utility function that was originally created to accomplish this for health check headers.
@@ -136,7 +136,7 @@ func convertHeaderConfig(in *custom_headers.HeaderManipulation, secrets *v1.Secr
 }
 
 func convertResponseHeaderValueOption(
-	in []*custom_headers.HeaderValueOption,
+	in []*custom_headers.CustomHeaderValueOption,
 ) ([]*envoy_config_core_v3.HeaderValueOption, error) {
 	var out []*envoy_config_core_v3.HeaderValueOption
 	for _, h := range in {

@@ -15,7 +15,7 @@ import "google/protobuf/wrappers.proto";
 // This plugin provides configuration options to append and remove headers from
 // requests and responses
 // HeaderManipulation can be specified on routes, virtual hosts, or weighted destinations
-message HeaderManipulation {
+message CustomHeaderManipulation {
     // Specifies a list of HTTP headers that should be added to each request
     // handled by this route or virtual host. For more information, including
     // details on header value syntax, see the
@@ -32,7 +32,7 @@ message HeaderManipulation {
     // handled by this route or host. For more information, including
     // details on header value syntax, see the
     // [Envoy documentation](https://www.envoyproxy.io/docs/envoy/latest/configuration/http_conn_man/headers#config-http-conn-man-headers-custom-request-headers) .
-    repeated HeaderValueOption response_headers_to_add = 3;
+    repeated CustomHeaderValueOption response_headers_to_add = 3;
 
     // Specifies a list of HTTP headers that should be removed from each response
     // handled by this route or virtual host.
@@ -41,7 +41,7 @@ message HeaderManipulation {
 
 
 // Header name/value pair plus option to control append behavior.
-message HeaderValueOption {
+message CustomHeaderValueOption {
     // Header name/value pair that this option applies to.
     HeaderValue header = 1;
 

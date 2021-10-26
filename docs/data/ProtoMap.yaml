@@ -86,14 +86,14 @@ apis:
   cors.options.gloo.solo.io.CorsPolicy:
     relativepath: reference/api/github.com/solo-io/gloo/projects/gloo/api/v1/options/cors/cors.proto.sk/#CorsPolicy
     package: cors.options.gloo.solo.io
-  custom_headers.options.gloo.solo.io.HeaderManipulation:
-    relativepath: reference/api/github.com/solo-io/gloo/projects/gloo/api/v1/options/custom_headers/custom_headers.proto.sk/#HeaderManipulation
+  custom_headers.options.gloo.solo.io.CustomHeaderManipulation:
+    relativepath: reference/api/github.com/solo-io/gloo/projects/gloo/api/v1/options/custom_headers/custom_headers.proto.sk/#CustomHeaderManipulation
+    package: custom_headers.options.gloo.solo.io
+  custom_headers.options.gloo.solo.io.CustomHeaderValueOption:
+    relativepath: reference/api/github.com/solo-io/gloo/projects/gloo/api/v1/options/custom_headers/custom_headers.proto.sk/#CustomHeaderValueOption
     package: custom_headers.options.gloo.solo.io
   custom_headers.options.gloo.solo.io.HeaderValue:
     relativepath: reference/api/github.com/solo-io/gloo/projects/gloo/api/v1/options/custom_headers/custom_headers.proto.sk/#HeaderValue
-    package: custom_headers.options.gloo.solo.io
-  custom_headers.options.gloo.solo.io.HeaderValueOption:
-    relativepath: reference/api/github.com/solo-io/gloo/projects/gloo/api/v1/options/custom_headers/custom_headers.proto.sk/#HeaderValueOption
     package: custom_headers.options.gloo.solo.io
   dlp.options.gloo.solo.io.Action:
     relativepath: reference/api/github.com/solo-io/gloo/projects/gloo/api/v1/enterprise/options/dlp/dlp.proto.sk/#Action

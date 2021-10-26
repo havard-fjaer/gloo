@@ -26,14 +26,14 @@ var (
 )
 
 // Equal function
-func (m *HeaderManipulation) Equal(that interface{}) bool {
+func (m *CustomHeaderManipulation) Equal(that interface{}) bool {
 	if that == nil {
 		return m == nil
 	}
 
-	target, ok := that.(*HeaderManipulation)
+	target, ok := that.(*CustomHeaderManipulation)
 	if !ok {
-		that2, ok := that.(HeaderManipulation)
+		that2, ok := that.(CustomHeaderManipulation)
 		if ok {
 			target = &that2
 		} else {
@@ -106,14 +106,14 @@ func (m *HeaderManipulation) Equal(that interface{}) bool {
 }
 
 // Equal function
-func (m *HeaderValueOption) Equal(that interface{}) bool {
+func (m *CustomHeaderValueOption) Equal(that interface{}) bool {
 	if that == nil {
 		return m == nil
 	}
 
-	target, ok := that.(*HeaderValueOption)
+	target, ok := that.(*CustomHeaderValueOption)
 	if !ok {
-		that2, ok := that.(HeaderValueOption)
+		that2, ok := that.(CustomHeaderValueOption)
 		if ok {
 			target = &that2
 		} else {

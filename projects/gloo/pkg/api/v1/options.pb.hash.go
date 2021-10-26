@@ -686,6 +686,26 @@ func (m *VirtualHostOptions) Hash(hasher hash.Hash64) (uint64, error) {
 		}
 	}
 
+	if h, ok := interface{}(m.GetCustomHeaderManipulation()).(safe_hasher.SafeHasher); ok {
+		if _, err = hasher.Write([]byte("CustomHeaderManipulation")); err != nil {
+			return 0, err
+		}
+		if _, err = h.Hash(hasher); err != nil {
+			return 0, err
+		}
+	} else {
+		if fieldValue, err := hashstructure.Hash(m.GetCustomHeaderManipulation(), nil); err != nil {
+			return 0, err
+		} else {
+			if _, err = hasher.Write([]byte("CustomHeaderManipulation")); err != nil {
+				return 0, err
+			}
+			if err := binary.Write(hasher, binary.LittleEndian, fieldValue); err != nil {
+				return 0, err
+			}
+		}
+	}
+
 	if h, ok := interface{}(m.GetWaf()).(safe_hasher.SafeHasher); ok {
 		if _, err = hasher.Write([]byte("Waf")); err != nil {
 			return 0, err
@@ -1441,6 +1461,26 @@ func (m *RouteOptions) Hash(hasher hash.Hash64) (uint64, error) {
 		}
 	}
 
+	if h, ok := interface{}(m.GetCustomHeaderManipulation()).(safe_hasher.SafeHasher); ok {
+		if _, err = hasher.Write([]byte("CustomHeaderManipulation")); err != nil {
+			return 0, err
+		}
+		if _, err = h.Hash(hasher); err != nil {
+			return 0, err
+		}
+	} else {
+		if fieldValue, err := hashstructure.Hash(m.GetCustomHeaderManipulation(), nil); err != nil {
+			return 0, err
+		} else {
+			if _, err = hasher.Write([]byte("CustomHeaderManipulation")); err != nil {
+				return 0, err
+			}
+			if err := binary.Write(hasher, binary.LittleEndian, fieldValue); err != nil {
+				return 0, err
+			}
+		}
+	}
+
 	switch m.HostRewriteType.(type) {
 
 	case *RouteOptions_HostRewrite:
@@ -1825,6 +1865,26 @@ func (m *WeightedDestinationOptions) Hash(hasher hash.Hash64) (uint64, error) {
 			return 0, err
 		} else {
 			if _, err = hasher.Write([]byte("StagedTransformations")); err != nil {
+				return 0, err
+			}
+			if err := binary.Write(hasher, binary.LittleEndian, fieldValue); err != nil {
+				return 0, err
+			}
+		}
+	}
+
+	if h, ok := interface{}(m.GetCustomHeaderManipulation()).(safe_hasher.SafeHasher); ok {
+		if _, err = hasher.Write([]byte("CustomHeaderManipulation")); err != nil {
+			return 0, err
+		}
+		if _, err = h.Hash(hasher); err != nil {
+			return 0, err
+		}
+	} else {
+		if fieldValue, err := hashstructure.Hash(m.GetCustomHeaderManipulation(), nil); err != nil {
+			return 0, err
+		} else {
+			if _, err = hasher.Write([]byte("CustomHeaderManipulation")); err != nil {
 				return 0, err
 			}
 			if err := binary.Write(hasher, binary.LittleEndian, fieldValue); err != nil {

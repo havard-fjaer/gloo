@@ -23,6 +23,11 @@ virtualHost:
         - header:
             key: X-Test-Header
             value: From standard plugin 5
+      customHeaderManipulation:
+        responseHeadersToAdd:
+        - header:
+            key: X-Custom-Test-Header
+            value: From custom plugin
       prefixRewrite: /api/pets
     routeAction:
       single:
