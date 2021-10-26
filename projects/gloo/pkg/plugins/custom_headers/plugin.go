@@ -7,6 +7,7 @@ import (
 	v1 "github.com/solo-io/gloo/projects/gloo/pkg/api/v1"
 	"github.com/solo-io/gloo/projects/gloo/pkg/api/v1/options/custom_headers"
 	"github.com/solo-io/gloo/projects/gloo/pkg/plugins"
+	"github.com/solo-io/go-utils/log"
 	"github.com/solo-io/solo-kit/pkg/errors"
 )
 
@@ -22,10 +23,12 @@ var _ plugins.VirtualHostPlugin = NewPlugin()
 var _ plugins.WeightedDestinationPlugin = NewPlugin()
 
 func NewPlugin() *Plugin {
+	log.Printf("custom_headers: NewPlugin()")
 	return &Plugin{}
 }
 
 func (p *Plugin) Init(_ plugins.InitParams) error {
+	log.Printf("custom_headers: Init()")
 	return nil
 }
 
