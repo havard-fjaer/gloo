@@ -23,12 +23,12 @@ var _ plugins.VirtualHostPlugin = NewPlugin()
 var _ plugins.WeightedDestinationPlugin = NewPlugin()
 
 func NewPlugin() *Plugin {
-	log.Fatalf("headers: NewPlugin()")
+	log.Warnf("headers: NewPlugin()")
 	return &Plugin{}
 }
 
 func (p *Plugin) Init(_ plugins.InitParams) error {
-	log.Fatalf("headers: Init()")
+	log.Warnf("headers: Init()")
 	return nil
 }
 
