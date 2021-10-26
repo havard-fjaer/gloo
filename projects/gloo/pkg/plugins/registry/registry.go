@@ -12,6 +12,7 @@ import (
 	"github.com/solo-io/gloo/projects/gloo/pkg/plugins/consul"
 	"github.com/solo-io/gloo/projects/gloo/pkg/plugins/cors"
 	"github.com/solo-io/gloo/projects/gloo/pkg/plugins/csrf"
+	"github.com/solo-io/gloo/projects/gloo/pkg/plugins/custom_headers"
 	"github.com/solo-io/gloo/projects/gloo/pkg/plugins/extauth"
 	"github.com/solo-io/gloo/projects/gloo/pkg/plugins/faultinjection"
 	"github.com/solo-io/gloo/projects/gloo/pkg/plugins/grpc"
@@ -79,6 +80,7 @@ var globalRegistry = func(opts bootstrap.Opts, pluginExtensions ...func() plugin
 		tracing.NewPlugin(),
 		shadowing.NewPlugin(),
 		headers.NewPlugin(),
+		custom_headers.NewPlugin(),
 		healthcheck.NewPlugin(),
 		extauth.NewCustomAuthPlugin(),
 		ratelimit.NewPlugin(),
